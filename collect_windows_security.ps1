@@ -47,8 +47,10 @@ if ($StartTime -gt $EndTime) {
 # 4625 = failed logon
 $EventIds = 4624, 4625
 
-# Output CSV file path.
-$OutputFile = "C:\incident_log_project\collected_logs\windows_security_events.csv"
+# Output folder and CSV file path.
+# $PSScriptRoot - the folder where this PowerShell script is located.
+$OutputDir = Join-Path $PSScriptRoot "collected_logs"
+$OutputFile = Join-Path $OutputDir "windows_security_events.csv"
 
 Write-Host ""
 Write-Host "Collecting Event IDs: $($EventIds -join ', ')"
@@ -76,7 +78,7 @@ $Rows = foreach ($Event in $Events) {
 }
 
 # Create output folder if it does not already exist.
-New-Item -ItemType Directory -Force -Path "C:\incident_log_project\collected_logs" | Out-Null
+New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 
 # Export the collected rows to CSV.
 $Rows | Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8
