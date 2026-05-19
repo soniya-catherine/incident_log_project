@@ -58,13 +58,23 @@ Write-Host "Start Time: $StartTime"
 Write-Host "End Time: $EndTime"
 Write-Host ""
 
-# Read matching Windows Security events.
-$Events = Get-WinEvent -FilterHashtable @{
-    LogName   = "Security"
-    Id        = $EventIds
-    StartTime = $StartTime
-    EndTime   = $EndTime
-} -ErrorAction SilentlyContinue
+# Read log name, event ID, and start time first, then filter by end time.
+# This avoids FilterHashtable errors on some Windows systems.
+try {
+    $Events = Get-WinEvent -FilterHashtable @{
+        LogName = "Security"
+        Id = $EventIds
+        StartTime = $StartTime
+    } -ErrorAction Stop | Where-Object {
+        $_.TimeCreated -le $EndTime
+    }
+}
+catch {
+    Write-Host "ERROR: Could not read Windows Security logs."
+    Write-Host "Try running PowerShell as Administrator."
+    Write-Host "Details: $($_.Exception.Message)"
+    exit
+}
 
 # Convert each event into a simple CSV-friendly object.
 $Rows = foreach ($Event in $Events) {
