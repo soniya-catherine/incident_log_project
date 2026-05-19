@@ -83,6 +83,8 @@ This repository includes example output files from a completed VMware lab run.
 
 These files are only examples. When users run the collectors, normalizer, and analyzer on their own machines, their output will depend on their own logs, timestamps, usernames, hostnames, and IP addresses.
 
+> **Sanitization note:** The example output files included in this repository have been sanitized before publishing. Sensitive details and system-specific identifiers have been removed or replaced with safe lab values. These files are provided only to show the expected output format.
+
 ### `example_outputs/ubuntu_auth_collected_example.log`
 
 This file contains example Ubuntu authentication log lines collected from the lab Ubuntu machine.
@@ -216,6 +218,16 @@ Expected output example:
 Ubuntu Auth Log Collector
 Time format example: 2026-04-22T00:00:00+05:30
 
+Enter start time: 2026-04-22T00:00:00+05:30
+Enter end time: 2026-04-22T23:59:59+05:30
+
+Reading these log files:
+- /var/log/auth.log
+- /var/log/auth.log.1
+- /var/log/auth.log.2.gz
+- /var/log/auth.log.3.gz
+- /var/log/auth.log.4.gz
+
 Collection complete.
 Lines collected: 169
 Output saved to: collected_logs/ubuntu_auth_collected.log
@@ -252,10 +264,18 @@ Expected output example:
 
 ```text
 Windows Security Log Collector
+Time format example: 2026-04-22 00:00:00
+
+Enter start time: 2026-05-12 00:00:00
+Enter end time: 2026-05-12 23:59:59
+
 Collecting Event IDs: 4624, 4625
+Start Time: 05/12/2026 00:00:00
+End Time: 05/12/2026 23:59:59
+
 Collection complete.
-Events collected: 184
-Output saved to: collected_logs/windows_security_events.csv
+Events collected: 187
+Output saved to: C:/incident_log_project/collected_logs/windows_security_events.csv
 ```
 
 This execution policy bypass only applies to that command execution. It does not permanently change the system execution policy.
@@ -421,42 +441,9 @@ Main detection rules include:
 
 ## Framework Mappings
 
-The analyzer maps incidents to cybersecurity frameworks to make the results easier to explain professionally.
+The analyzer maps incidents to cybersecurity frameworks such as NIST CSF, NIST SP 800-61 and MITRE ATT&CK to make the results easier to explain professionally.
 
-### NIST CSF
-
-Examples:
-
-```text
-DE.AE Anomalies and Events
-DE.CM Security Continuous Monitoring
-RS.AN Analysis
-```
-
-### NIST SP 800-61
-
-Examples:
-
-```text
-Detection and Analysis
-Incident Analysis and Prioritization
-Evidence Collection and Analysis
-```
-
-### MITRE ATT&CK
-
-Examples:
-
-```text
-T1110 Brute Force
-T1078 Valid Accounts
-T1021 Remote Services
-T1046 Network Service Discovery
-```
-
-Important note:
-
-The analyzer does not directly execute Sigma rules, Chainsaw, or Wazuh rules. It uses transparent Python rules inspired by common incident response logic and maps each detection to NIST CSF, NIST SP 800-61, and MITRE ATT&CK.
+>**Important note:** The analyzer does not directly execute Sigma rules, Chainsaw, or Wazuh rules. It uses transparent Python rules inspired by common incident response logic and maps each detection to NIST CSF, NIST SP 800-61, and MITRE ATT&CK.
 
 Sigma, Chainsaw, or Wazuh may be used separately later for optional validation or comparison.
 
@@ -483,4 +470,10 @@ This project demonstrates a simple security incident analysis process:
 
 ```text
 collect -> normalize -> analyze -> prioritize -> explain
+```
+
+The final result helps answer the main investigation question:
+
+```text
+Which incident should be investigated first, and why?
 ```
