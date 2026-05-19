@@ -1,0 +1,169 @@
+2026-04-22T00:05:01.486356+05:30 UBUNTU-LAB CRON[22095]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T00:05:01.490890+05:30 UBUNTU-LAB CRON[22095]: pam_unix(cron:session): session closed for user root
+2026-04-22T00:15:01.500327+05:30 UBUNTU-LAB CRON[22909]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T00:15:01.504241+05:30 UBUNTU-LAB CRON[22909]: pam_unix(cron:session): session closed for user root
+2026-04-22T00:17:01.518142+05:30 UBUNTU-LAB CRON[23163]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T00:17:01.522657+05:30 UBUNTU-LAB CRON[23163]: pam_unix(cron:session): session closed for user root
+2026-04-22T13:17:39.228497+05:30 UBUNTU-LAB CRON[24381]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T13:17:39.239720+05:30 UBUNTU-LAB CRON[24381]: pam_unix(cron:session): session closed for user root
+2026-04-22T13:20:31.890291+05:30 UBUNTU-LAB gdm-password]: gkr-pam: unlocked login keyring
+2026-04-22T13:22:55.258962+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/sbin/ufw status
+2026-04-22T13:22:55.269259+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T13:22:55.564663+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T13:23:02.956212+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/sbin/ufw allow ssh
+2026-04-22T13:23:02.957880+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T13:23:03.140377+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T13:23:13.402656+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/sbin/ufw enable
+2026-04-22T13:23:13.411361+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T13:23:14.087046+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T13:23:21.270326+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/sbin/ufw status
+2026-04-22T13:23:21.272715+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T13:23:21.330619+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T13:23:37.258287+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/sbin/ufw status
+2026-04-22T13:23:37.258926+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T13:23:37.320129+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T13:25:01.246613+05:30 UBUNTU-LAB CRON[25284]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T13:25:01.256163+05:30 UBUNTU-LAB CRON[25284]: pam_unix(cron:session): session closed for user root
+2026-04-22T13:30:01.265119+05:30 UBUNTU-LAB CRON[25687]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T13:30:01.267159+05:30 UBUNTU-LAB CRON[25687]: pam_unix(cron:session): session closed for user root
+2026-04-22T13:35:01.273183+05:30 UBUNTU-LAB CRON[26166]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T13:35:01.277020+05:30 UBUNTU-LAB CRON[26166]: pam_unix(cron:session): session closed for user root
+2026-04-22T13:37:16.795528+05:30 UBUNTU-LAB gdm-password]: gkr-pam: unlocked login keyring
+2026-04-22T13:45:01.284955+05:30 UBUNTU-LAB CRON[27028]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T13:45:01.289126+05:30 UBUNTU-LAB CRON[27028]: pam_unix(cron:session): session closed for user root
+2026-04-22T13:52:05.958360+05:30 UBUNTU-LAB sshd[1234]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=10.10.10.10  user=demo_user
+2026-04-22T13:52:07.513541+05:30 UBUNTU-LAB sshd[1234]: Failed password for demo_user from 10.10.10.10 port 12345 ssh2
+2026-04-22T13:52:40.564903+05:30 UBUNTU-LAB gdm-password]: gkr-pam: unlocked login keyring
+2026-04-22T13:52:48.268625+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-04-22T13:52:48.272589+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T13:52:48.278625+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T13:54:42.791381+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-04-22T13:54:42.794710+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T13:54:42.804494+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T13:55:01.299478+05:30 UBUNTU-LAB CRON[27907]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T13:55:01.307868+05:30 UBUNTU-LAB CRON[27907]: pam_unix(cron:session): session closed for user root
+2026-04-22T14:05:01.317669+05:30 UBUNTU-LAB CRON[28905]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T14:05:01.323526+05:30 UBUNTU-LAB CRON[28905]: pam_unix(cron:session): session closed for user root
+2026-04-22T14:07:20.018908+05:30 UBUNTU-LAB gdm-password]: gkr-pam: unlocked login keyring
+2026-04-22T14:13:10.434809+05:30 UBUNTU-LAB gdm-password]: gkr-pam: unlocked login keyring
+2026-04-22T14:15:01.334142+05:30 UBUNTU-LAB CRON[29869]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T14:15:01.344038+05:30 UBUNTU-LAB CRON[29869]: pam_unix(cron:session): session closed for user root
+2026-04-22T14:17:01.351718+05:30 UBUNTU-LAB CRON[30033]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T14:17:01.364084+05:30 UBUNTU-LAB CRON[30033]: pam_unix(cron:session): session closed for user root
+2026-04-22T14:20:04.128107+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/apt update
+2026-04-22T14:20:04.131429+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:25:01.381919+05:30 UBUNTU-LAB CRON[30795]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T14:25:01.394090+05:30 UBUNTU-LAB CRON[30795]: pam_unix(cron:session): session closed for user root
+2026-04-22T14:25:01.478069+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T14:27:09.108844+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/apt install wireshark -y
+2026-04-22T14:27:09.123941+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:29:57.414051+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T14:30:01.407393+05:30 UBUNTU-LAB CRON[31197]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T14:30:01.413232+05:30 UBUNTU-LAB CRON[31197]: pam_unix(cron:session): session closed for user root
+2026-04-22T14:32:15.683089+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/apt install wireshark
+2026-04-22T14:32:15.686548+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:32:19.854042+05:30 UBUNTU-LAB pkexec: pam_unix(polkit-1:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:32:19.857601+05:30 UBUNTU-LAB pkexec[32574]: admin_user: Executing command [USER=root] [TTY=unknown] [CWD=/home/admin_user] [COMMAND=/usr/lib/update-notifier/package-system-locked]
+2026-04-22T14:32:23.703412+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T14:35:01.422601+05:30 UBUNTU-LAB CRON[32807]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T14:35:01.431319+05:30 UBUNTU-LAB CRON[32807]: pam_unix(cron:session): session closed for user root
+2026-04-22T14:36:26.460128+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/apt update
+2026-04-22T14:36:26.471136+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:41:05.459447+05:30 UBUNTU-LAB sshd[1234]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=10.10.10.10  user=demo_user
+2026-04-22T14:41:06.954298+05:30 UBUNTU-LAB sshd[1234]: Failed password for demo_user from 10.10.10.10 port 12345 ssh2
+2026-04-22T14:41:13.208027+05:30 UBUNTU-LAB sshd[1234]: Failed password for demo_user from 10.10.10.10 port 12345 ssh2
+2026-04-22T14:41:23.860312+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T14:41:23.874069+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/0 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/apt install wireshark -y
+2026-04-22T14:41:23.874869+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:41:27.305090+05:30 UBUNTU-LAB sshd[1234]: Failed password for demo_user from 10.10.10.10 port 12345 ssh2
+2026-04-22T14:41:29.245423+05:30 UBUNTU-LAB sshd[1234]: Connection closed by authenticating user demo_user 10.10.10.10 port 58442 [preauth]
+2026-04-22T14:41:29.245698+05:30 UBUNTU-LAB sshd[1234]: PAM 2 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=10.10.10.10  user=demo_user
+2026-04-22T14:41:45.362626+05:30 UBUNTU-LAB sshd[1234]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=10.10.10.10  user=demo_user
+2026-04-22T14:41:46.681514+05:30 UBUNTU-LAB sshd[1234]: Failed password for demo_user from 10.10.10.10 port 12345 ssh2
+2026-04-22T14:41:52.093048+05:30 UBUNTU-LAB sshd[1234]: Failed password for demo_user from 10.10.10.10 port 12345 ssh2
+2026-04-22T14:41:56.985674+05:30 UBUNTU-LAB sshd[1234]: Failed password for demo_user from 10.10.10.10 port 12345 ssh2
+2026-04-22T14:41:58.933248+05:30 UBUNTU-LAB sshd[1234]: Connection closed by authenticating user demo_user 10.10.10.10 port 52880 [preauth]
+2026-04-22T14:41:58.933503+05:30 UBUNTU-LAB sshd[1234]: PAM 2 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=10.10.10.10  user=demo_user
+2026-04-22T14:43:40.624666+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T14:44:17.345733+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/2 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/tail -n 30 /var/log/auth.log
+2026-04-22T14:44:17.350528+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:44:17.355937+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T14:45:01.442221+05:30 UBUNTU-LAB CRON[33641]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T14:45:01.454828+05:30 UBUNTU-LAB CRON[33641]: pam_unix(cron:session): session closed for user root
+2026-04-22T14:46:43.407295+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/2 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/tail -n 50 /var/log/auth.log
+2026-04-22T14:46:43.410385+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:46:43.414541+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T14:47:16.669364+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/2 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/tail -n 50 /var/log/auth.log
+2026-04-22T14:47:16.670662+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:47:16.681441+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T14:50:20.588583+05:30 UBUNTU-LAB pkexec: pam_unix(polkit-1:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:50:20.594214+05:30 UBUNTU-LAB pkexec[34038]: admin_user: Executing command [USER=root] [TTY=unknown] [CWD=/home/admin_user] [COMMAND=/usr/lib/update-notifier/package-system-locked]
+2026-04-22T14:52:01.487066+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/2 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/grep 13:52:07 /var/log/auth.log
+2026-04-22T14:52:01.492152+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T14:52:01.496508+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T14:55:01.465903+05:30 UBUNTU-LAB CRON[34398]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T14:55:01.473432+05:30 UBUNTU-LAB CRON[34398]: pam_unix(cron:session): session closed for user root
+2026-04-22T15:02:57.446736+05:30 UBUNTU-LAB gdm-password]: gkr-pam: unlocked login keyring
+2026-04-22T15:03:32.138126+05:30 UBUNTU-LAB sshd[1234]: Connection closed by 10.10.10.20 port 33640 [preauth]
+2026-04-22T15:04:19.321160+05:30 UBUNTU-LAB sshd[1234]: Accepted password for demo_user from 10.10.10.10 port 12345 ssh2
+2026-04-22T15:04:19.325822+05:30 UBUNTU-LAB sshd[1234]: pam_unix(sshd:session): session opened for user demo_user(uid=1001) by demo_user(uid=0)
+2026-04-22T15:04:19.407831+05:30 UBUNTU-LAB systemd-logind[1128]: New session 46 of user demo_user.
+2026-04-22T15:04:19.465468+05:30 UBUNTU-LAB (systemd): pam_unix(systemd-user:session): session opened for user demo_user(uid=1001) by demo_user(uid=0)
+2026-04-22T15:05:01.485976+05:30 UBUNTU-LAB CRON[35822]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T15:05:01.491226+05:30 UBUNTU-LAB CRON[35822]: pam_unix(cron:session): session closed for user root
+2026-04-22T15:05:36.306221+05:30 UBUNTU-LAB sshd[1234]: Received disconnect from 10.10.10.10 port 60284:11: disconnected by user
+2026-04-22T15:05:36.306691+05:30 UBUNTU-LAB sshd[1234]: Disconnected from user demo_user 10.10.10.10 port 60284
+2026-04-22T15:05:36.308327+05:30 UBUNTU-LAB sshd[1234]: pam_unix(sshd:session): session closed for user demo_user
+2026-04-22T15:05:36.328884+05:30 UBUNTU-LAB systemd-logind[1128]: Session 46 logged out. Waiting for processes to exit.
+2026-04-22T15:05:36.339596+05:30 UBUNTU-LAB systemd-logind[1128]: Removed session 46.
+2026-04-22T15:05:46.604429+05:30 UBUNTU-LAB (sd-pam): pam_unix(systemd-user:session): session closed for user demo_user
+2026-04-22T15:06:40.926263+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/2 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/tail -n 30 /var/log/auth.log
+2026-04-22T15:06:40.930516+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T15:06:40.941885+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T15:08:29.023470+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/2 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/grep -E 'Failed password|Accepted password' /var/log/auth.log
+2026-04-22T15:08:29.029318+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T15:08:29.033536+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T15:15:01.506879+05:30 UBUNTU-LAB CRON[36654]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T15:15:01.519984+05:30 UBUNTU-LAB CRON[36654]: pam_unix(cron:session): session closed for user root
+2026-04-22T15:16:11.032347+05:30 UBUNTU-LAB sshd[1234]: Accepted password for demo_user from 10.10.10.10 port 12345 ssh2
+2026-04-22T15:16:11.033968+05:30 UBUNTU-LAB sshd[1234]: pam_unix(sshd:session): session opened for user demo_user(uid=1001) by demo_user(uid=0)
+2026-04-22T15:16:11.060083+05:30 UBUNTU-LAB systemd-logind[1128]: New session 50 of user demo_user.
+2026-04-22T15:16:11.092242+05:30 UBUNTU-LAB (systemd): pam_unix(systemd-user:session): session opened for user demo_user(uid=1001) by demo_user(uid=0)
+2026-04-22T15:16:53.279955+05:30 UBUNTU-LAB sudo: demo_user : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/demo_user ; USER=root ; COMMAND=/usr/bin/ls /root
+2026-04-22T15:17:01.549416+05:30 UBUNTU-LAB CRON[37068]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T15:17:01.570959+05:30 UBUNTU-LAB CRON[37068]: pam_unix(cron:session): session closed for user root
+2026-04-22T15:17:36.132991+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/2 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/sbin/usermod -aG sudo demo_user
+2026-04-22T15:17:36.141716+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T15:17:36.169155+05:30 UBUNTU-LAB usermod[37105]: add 'demo_user' to group 'sudo'
+2026-04-22T15:17:36.169374+05:30 UBUNTU-LAB usermod[37105]: add 'demo_user' to shadow group 'sudo'
+2026-04-22T15:17:36.183592+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T15:18:16.260221+05:30 UBUNTU-LAB sudo: demo_user : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/demo_user ; USER=root ; COMMAND=/usr/bin/ls /root
+2026-04-22T15:18:22.328231+05:30 UBUNTU-LAB sshd[1234]: Received disconnect from 10.10.10.10 port 39282:11: disconnected by user
+2026-04-22T15:18:22.328463+05:30 UBUNTU-LAB sshd[1234]: Disconnected from user demo_user 10.10.10.10 port 39282
+2026-04-22T15:18:22.332528+05:30 UBUNTU-LAB sshd[1234]: pam_unix(sshd:session): session closed for user demo_user
+2026-04-22T15:18:22.344342+05:30 UBUNTU-LAB systemd-logind[1128]: Session 50 logged out. Waiting for processes to exit.
+2026-04-22T15:18:22.348021+05:30 UBUNTU-LAB systemd-logind[1128]: Removed session 50.
+2026-04-22T15:18:31.899291+05:30 UBUNTU-LAB sshd[1234]: Accepted password for demo_user from 10.10.10.10 port 12345 ssh2
+2026-04-22T15:18:31.902376+05:30 UBUNTU-LAB sshd[1234]: pam_unix(sshd:session): session opened for user demo_user(uid=1001) by demo_user(uid=0)
+2026-04-22T15:18:31.911270+05:30 UBUNTU-LAB systemd-logind[1128]: New session 53 of user demo_user.
+2026-04-22T15:18:39.759433+05:30 UBUNTU-LAB sudo: demo_user : TTY=pts/0 ; PWD=/home/demo_user ; USER=root ; COMMAND=/usr/bin/ls /root
+2026-04-22T15:18:39.759897+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by demo_user(uid=1001)
+2026-04-22T15:18:39.765872+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T15:18:52.734725+05:30 UBUNTU-LAB sudo: demo_user : TTY=pts/0 ; PWD=/home/demo_user ; USER=root ; COMMAND=/usr/bin/ls /root
+2026-04-22T15:18:52.738436+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by demo_user(uid=1001)
+2026-04-22T15:18:52.742750+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T15:20:07.954275+05:30 UBUNTU-LAB sudo:      admin_user : TTY=pts/2 ; PWD=/home/admin_user ; USER=root ; COMMAND=/usr/bin/tail -n 30 /var/log/auth.log
+2026-04-22T15:20:07.957859+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session opened for user root(uid=0) by admin_user(uid=1000)
+2026-04-22T15:20:07.959302+05:30 UBUNTU-LAB sudo: pam_unix(sudo:session): session closed for user root
+2026-04-22T15:25:01.582634+05:30 UBUNTU-LAB CRON[37759]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T15:25:01.594167+05:30 UBUNTU-LAB CRON[37759]: pam_unix(cron:session): session closed for user root
+2026-04-22T15:30:01.602625+05:30 UBUNTU-LAB CRON[38148]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T15:30:01.608257+05:30 UBUNTU-LAB CRON[38148]: pam_unix(cron:session): session closed for user root
+2026-04-22T15:30:59.214581+05:30 UBUNTU-LAB sshd[1234]: Received disconnect from 10.10.10.10 port 36630:11: disconnected by user
+2026-04-22T15:30:59.219096+05:30 UBUNTU-LAB sshd[1234]: Disconnected from user demo_user 10.10.10.10 port 36630
+2026-04-22T15:30:59.219558+05:30 UBUNTU-LAB sshd[1234]: pam_unix(sshd:session): session closed for user demo_user
+2026-04-22T15:30:59.241038+05:30 UBUNTU-LAB systemd-logind[1128]: Session 53 logged out. Waiting for processes to exit.
+2026-04-22T15:30:59.247283+05:30 UBUNTU-LAB systemd-logind[1128]: Removed session 53.
+2026-04-22T15:31:09.580914+05:30 UBUNTU-LAB (sd-pam): pam_unix(systemd-user:session): session closed for user demo_user
+2026-04-22T15:35:01.621588+05:30 UBUNTU-LAB CRON[38659]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-04-22T15:35:01.635415+05:30 UBUNTU-LAB CRON[38659]: pam_unix(cron:session): session closed for user root
