@@ -474,6 +474,4 @@ collect -> normalize -> analyze -> prioritize -> explain
 
 The final result helps answer the main investigation question:
 
-```text
-Which incident should be investigated first, and why?
-```
+**Which incident should be investigated first, and why?**
