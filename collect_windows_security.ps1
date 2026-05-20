@@ -14,7 +14,7 @@ Events collected:
 - 4625 = Failed logon
 
 Output:
-C:\incident_log_project\collected_logs\windows_security_events.csv
+incident_log_project\collected_logs\windows_security_events.csv
 #>
 
 Write-Host "Windows Security Log Collector"
