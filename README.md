@@ -208,8 +208,8 @@ Enter the start and end time when asked.
 Example time format:
 
 ```text
-2026-04-22T00:00:00+05:30
-2026-04-22T23:59:59+05:30
+2026-05-20T00:00:00+05:30
+2026-05-20T23:59:59+05:30
 ```
 
 Expected output example:
@@ -256,8 +256,8 @@ Enter the start and end time when asked.
 Example time format:
 
 ```text
-2026-05-12 00:00:00
-2026-05-12 23:59:59
+2026-05-20 00:00:00
+2026-05-20 23:59:59
 ```
 
 Expected output example:
