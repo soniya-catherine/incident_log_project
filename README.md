@@ -46,10 +46,12 @@ This project helps reduce log overload by collecting, normalizing, analyzing, an
 - Detects suspicious authentication and privilege-related activity
 - Prioritizes incidents as Low, Medium, High, or Critical
 - Provides recommended actions for each incident
+- Generates a visual HTML incident report in addition to the CSV summary
 - Maps findings to NIST CSF, NIST SP 800-61, and MITRE ATT&CK
 - Keeps raw log messages as evidence
 - Uses simple Python and PowerShell scripts
 - Designed to be easy to understand, modify, and explain
+
 
 ## Repository Files
 
@@ -133,9 +135,19 @@ This CSV is the main analysis result.
 
 ### `example_outputs/incident_summary.html`
 
-This file contains an HTML version of the final incident summary.
+This file contains a visual HTML version of the final incident summary.
 
-It is useful for viewing the analyzer results in a browser or including a cleaner results screenshot in documentation.
+It includes:
+
+- severity summary cards
+- detected case studies / investigation stories
+- incident type breakdown
+- prioritized incident table
+- recommended actions
+
+The case-study section is generated from detected incident patterns. It is not hard-coded to the author's lab IP addresses, usernames, hostnames, or machines.
+
+This file is useful for viewing the analyzer results in a browser or including a cleaner results screenshot in documentation.
 
 
 ## Installation and Setup
@@ -358,12 +370,15 @@ Analysis complete.
 Normalized rows read: 262
 Incidents written: 6
 Output saved to: incident_summary.csv
+HTML report saved to: incident_summary.html
 ```
 
 The analyzer creates:
 
 ```text
 incident_summary.csv
+incident_summary.html
+
 ```
 
 ## Viewing CSV Results
@@ -396,14 +411,6 @@ Separator: comma
 Text delimiter: double quote
 ```
 
-You can use LibreOffice Calc to export a CSV as an HTML file for cleaner viewing in a web browser.
-
-1.  **Open** `incident_summary.csv` in LibreOffice Calc.
-2.  Go to **File > Save As**.
-3.  Choose **HTML Document (.html)** as the file type.
-4.  **Save** the file.
-5.  **Open** the saved `.html` file in a browser for a cleaner table view.
-
 Alternative terminal option:
 
 ```bash
@@ -411,6 +418,19 @@ sudo apt install csvkit -y
 csvlook incident_summary.csv | less -S
 ```
 
+## Viewing the HTML Report
+
+The analyzer also creates:
+
+```text
+incident_summary.html
+```
+
+Open it in a browser:
+
+```bash
+xdg-open incident_summary.html
+```
 
 ## Detection Logic
 
