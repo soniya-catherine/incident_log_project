@@ -72,7 +72,7 @@ incident-log-analyzer/
 |   |-- windows_security_events_example.csv
 |   |-- normalized_logs_example.csv
 |   |-- incident_summary_example.csv
-|   |-- incident_summary.html
+|   |-- incident_summary_example.html
 ```
 
 > Note: The `collected_logs` folder is included in the repository so users do not need to create it manually.
@@ -133,7 +133,7 @@ timestamp, severity, incident_type, source_ip, host, user, description, evidence
 
 This CSV is the main analysis result.
 
-### `example_outputs/incident_summary.html`
+### `example_outputs/incident_summary_example.html`
 
 This file contains a visual HTML version of the final incident summary.
 
