@@ -794,6 +794,20 @@ def is_blank(value):
 
     return value in ["", "-", "unknown", "none", "null", "n/a"]
 
+def is_loopback_source(source_ip):
+    """
+    Check whether the source IP represents the local machine.
+
+    Loopback traffic usually means the system is talking to itself.
+    It should not be treated like suspicious remote login activity.
+    """
+    source_ip = str(source_ip).strip().lower()
+
+    return source_ip in [
+        "127.0.0.1",
+        "::1",
+        "localhost",
+    ]
 
 def is_windows_network_logon(row):
     """
@@ -831,8 +845,15 @@ def analyze_failed_logins(rows, incidents):
     failed_groups = defaultdict(list)
 
     for row in rows:
-        if row.get("event_type") == "failed_login":
-            failed_groups[get_key(row)].append(row)
+        if row.get("event_type") != "failed_login":
+            continue
+
+        source_ip = row.get("source_ip", "").strip()
+
+        if is_loopback_source(source_ip):
+            continue    
+
+        failed_groups[get_key(row)].append(row)
 
     suspicious_keys = set()
 
@@ -928,8 +949,15 @@ def analyze_success_after_failures(rows, incidents, suspicious_keys):
     successful_groups = defaultdict(list)
 
     for row in rows:
-        if row.get("event_type") == "successful_login":
-            successful_groups[get_key(row)].append(row)
+        if row.get("event_type") != "successful_login":
+            continue
+        
+        source_ip = row.get("source_ip", "").strip()
+
+        if is_loopback_source(source_ip):
+            continue
+
+        successful_groups[get_key(row)].append(row)
 
     compromised_keys = set()
 
@@ -990,6 +1018,9 @@ def analyze_password_spraying(rows, incidents):
         if is_blank(source_ip) or is_blank(host) or is_blank(user):
             continue
 
+        if is_loopback_source(source_ip):
+            continue
+
         key = (source_ip, host)
         source_host_to_users[key].add(user)
         source_host_to_rows[key].append(row)
@@ -1047,6 +1078,9 @@ def analyze_same_user_multiple_sources(rows, incidents):
         user = row.get("user", "").strip()
 
         if is_blank(source_ip) or is_blank(host) or is_blank(user):
+            continue
+
+        if is_loopback_source(source_ip):
             continue
 
         key = (host, user)
@@ -1282,7 +1316,7 @@ def analyze_many_successful_logins(rows, incidents):
 
         # Ignore localhost because it usually represents local system activity,
         # not remote suspicious access.
-        if source_ip in ["127.0.0.1", "::1"]:
+        if is_loopback_source(source_ip):
             continue
 
         key = (source_ip, host)
@@ -1413,6 +1447,12 @@ def analyze_port_scan_support(rows, incidents):
 
         source_ip = row.get("source_ip", "").strip()
         host = row.get("host", "").strip()
+
+        if is_blank(source_ip) or is_blank(host):
+            continue
+
+        if is_loopback_source(source_ip):
+            continue
 
         key = (source_ip, host)
         scan_groups[key].append(row)
