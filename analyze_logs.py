@@ -45,12 +45,14 @@ Safety:
 """
 
 import csv
+import html
 from collections import defaultdict
 from pathlib import Path
 
 
 INPUT_FILE = Path("normalized_logs.csv")
 OUTPUT_FILE = Path("incident_summary.csv")
+HTML_OUTPUT_FILE = Path("incident_summary.html")
 
 
 FAILED_MEDIUM_THRESHOLD = 3
@@ -101,6 +103,631 @@ def write_incident_summary(incidents):
         writer.writeheader()
         writer.writerows(incidents)
 
+def count_by_field(rows, field_name):
+    """
+    Count how many times each value appears in a specific field.
+    """
+    counts = defaultdict(int)
+
+    for row in rows:
+        value = row.get(field_name, "").strip()
+
+        if value:
+            counts[value] += 1
+
+    return counts
+
+
+def get_severity_class(severity):
+    """
+    Return a CSS class name based on severity.
+    """
+    severity = severity.lower()
+
+    if severity == "critical":
+        return "severity-critical"
+
+    if severity == "high":
+        return "severity-high"
+
+    if severity == "medium":
+        return "severity-medium"
+
+    return "severity-low"
+
+
+def get_incidents_by_type(incidents, incident_type):
+    """
+    Return all incidents that match a specific incident type.
+    """
+    matching_incidents = []
+
+    for incident in incidents:
+        if incident.get("incident_type", "") == incident_type:
+            matching_incidents.append(incident)
+
+    return matching_incidents
+
+
+def make_short_incident_context(matching_incidents):
+    """
+    Create a short reusable context summary from matching incidents.
+
+    This does not mention lab-specific names like Kali, Ubuntu, Windows,
+    student usernames, or fixed IP addresses.
+    """
+    if not matching_incidents:
+        return ""
+
+    source_ips = sorted({
+        incident.get("source_ip", "").strip()
+        for incident in matching_incidents
+        if not is_blank(incident.get("source_ip", ""))
+    })
+
+    hosts = sorted({
+        incident.get("host", "").strip()
+        for incident in matching_incidents
+        if not is_blank(incident.get("host", ""))
+    })
+
+    users = sorted({
+        incident.get("user", "").strip()
+        for incident in matching_incidents
+        if not is_blank(incident.get("user", ""))
+        and incident.get("user", "").strip() not in ["Multiple users", "Multiple sources"]
+    })
+
+    evidence_total = 0
+
+    for incident in matching_incidents:
+        try:
+            evidence_total += int(incident.get("evidence_count", 0))
+        except ValueError:
+            pass
+
+    context_parts = []
+
+    context_parts.append(f"Matching incidents found: {len(matching_incidents)}")
+
+    if evidence_total:
+        context_parts.append(f"Total related evidence rows: {evidence_total}")
+
+    if source_ips:
+        context_parts.append(f"Source IPs involved: {', '.join(source_ips[:5])}")
+
+    if hosts:
+        context_parts.append(f"Hosts involved: {', '.join(hosts[:5])}")
+
+    if users:
+        context_parts.append(f"Users involved: {', '.join(users[:5])}")
+
+    return " | ".join(context_parts)
+
+
+def build_case_studies(incidents):
+    """
+    Create reusable case-study explanations based on detected incident types.
+
+    These are generic investigation stories.
+    They are not hard-coded to a specific lab, username, hostname, or IP address.
+    """
+    case_study_templates = [
+        {
+            "incident_type": "successful_login_after_repeated_failures",
+            "title": "Possible Account Compromise",
+            "what_happened": (
+                "A successful login was detected after repeated failed login attempts "
+                "for the same source, host, and user combination."
+            ),
+            "why_it_matters": (
+                "This pattern is important because repeated failures followed by success "
+                "may mean that password guessing eventually worked, or that valid credentials "
+                "were obtained after several failed attempts."
+            ),
+            "recommended_action": (
+                "Confirm whether the successful login was authorized. Review activity after "
+                "the login, reset credentials if suspicious, and preserve related logs."
+            ),
+        },
+        {
+            "incident_type": "privilege_activity_after_suspicious_login",
+            "title": "Privilege Activity After Suspicious Login",
+            "what_happened": (
+                "Privilege-related activity was detected for a user who was already linked "
+                "to suspicious login activity."
+            ),
+            "why_it_matters": (
+                "This matters because attackers often try to run administrative commands or "
+                "access protected resources after gaining access to an account."
+            ),
+            "recommended_action": (
+                "Review the privilege action, confirm whether it was expected, and check for "
+                "additional activity by the same account."
+            ),
+        },
+        {
+            "incident_type": "windows_repeated_network_failed_logins",
+            "title": "Repeated Network Logon Failures",
+            "what_happened": (
+                "Repeated network-style failed login attempts were detected on a host."
+            ),
+            "why_it_matters": (
+                "This may indicate password guessing against a network service such as file "
+                "sharing or remote authentication. It is more suspicious than a single failed login."
+            ),
+            "recommended_action": (
+                "Review the source IP, targeted account, logon type, and whether this network "
+                "access was expected."
+            ),
+        },
+        {
+            "incident_type": "possible_password_spraying",
+            "title": "Possible Password Spraying",
+            "what_happened": (
+                "The same source IP attempted failed logins against multiple user accounts "
+                "on the same host."
+            ),
+            "why_it_matters": (
+                "This can indicate password spraying, where an attacker tries common passwords "
+                "against many accounts instead of repeatedly attacking only one account."
+            ),
+            "recommended_action": (
+                "Review all targeted accounts, check password policy, and consider account "
+                "lockout, rate limiting, or additional monitoring."
+            ),
+        },
+        {
+            "incident_type": "same_user_targeted_from_multiple_sources",
+            "title": "Same User Targeted From Multiple Sources",
+            "what_happened": (
+                "The same user account was targeted by failed login attempts from more than "
+                "one source IP."
+            ),
+            "why_it_matters": (
+                "This may indicate distributed password guessing, shared account targeting, "
+                "or a wider campaign against a specific user."
+            ),
+            "recommended_action": (
+                "Review the targeted account, check for successful logins, confirm with the "
+                "user, and consider a password reset if the activity is suspicious."
+            ),
+        },
+        {
+            "incident_type": "many_successful_logins_from_same_source",
+            "title": "High Volume of Successful Logins",
+            "what_happened": (
+                "Many successful logins were detected from the same source IP to the same host."
+            ),
+            "why_it_matters": (
+                "This may be normal in some environments, but it can also indicate automated "
+                "access, shared credentials, or unusual remote activity."
+            ),
+            "recommended_action": (
+                "Check whether this login volume is expected. Review session activity, source "
+                "system purpose, and account usage."
+            ),
+        },
+        {
+            "incident_type": "port_scan_detected",
+            "title": "Port Scan Evidence",
+            "what_happened": (
+                "Port scan evidence was found in the normalized logs."
+            ),
+            "why_it_matters": (
+                "Port scanning can be part of reconnaissance, where someone checks which "
+                "services are exposed before attempting access."
+            ),
+            "recommended_action": (
+                "Confirm whether the scan was authorized. Review exposed services and check "
+                "for related authentication events from the same source."
+            ),
+        },
+        {
+            "incident_type": "multi_host_suspicious_activity",
+            "title": "Multi-Host Suspicious Activity",
+            "what_happened": (
+                "The same source IP was involved in suspicious activity across more than one host."
+            ),
+            "why_it_matters": (
+                "This is important because activity across multiple hosts can indicate a wider "
+                "attack path instead of an isolated event."
+            ),
+            "recommended_action": (
+                "Prioritize investigation of the source IP, review related logs from all affected "
+                "hosts, and confirm whether the activity was authorized."
+            ),
+        },
+    ]
+
+    case_studies = []
+
+    for template in case_study_templates:
+        matching_incidents = get_incidents_by_type(
+            incidents,
+            template["incident_type"]
+        )
+
+        if not matching_incidents:
+            continue
+
+        case_study = template.copy()
+        case_study["context"] = make_short_incident_context(matching_incidents)
+        case_studies.append(case_study)
+
+    return case_studies
+
+def write_html_report(incidents):
+    """
+    Write a visual HTML report for the incident summary.
+
+    The report is self-contained:
+    - no internet required
+    - no external JavaScript
+    - no external CSS
+    """
+    severity_counts = count_by_field(incidents, "severity")
+    incident_type_counts = count_by_field(incidents, "incident_type")
+    case_studies = build_case_studies(incidents)
+
+    total_incidents = len(incidents)
+    critical_count = severity_counts.get("Critical", 0)
+    high_count = severity_counts.get("High", 0)
+    medium_count = severity_counts.get("Medium", 0)
+    low_count = severity_counts.get("Low", 0)
+
+    incident_rows_html = ""
+
+    for incident in incidents:
+        severity = html.escape(incident.get("severity", ""))
+        severity_class = get_severity_class(severity)
+
+        incident_rows_html += f"""
+        <tr>
+            <td>{html.escape(incident.get("timestamp", ""))}</td>
+            <td><span class="badge {severity_class}">{severity}</span></td>
+            <td>{html.escape(incident.get("incident_type", ""))}</td>
+            <td>{html.escape(incident.get("source_ip", ""))}</td>
+            <td>{html.escape(incident.get("host", ""))}</td>
+            <td>{html.escape(incident.get("user", ""))}</td>
+            <td>{html.escape(incident.get("description", ""))}</td>
+            <td>{html.escape(str(incident.get("evidence_count", "")))}</td>
+            <td>{html.escape(incident.get("recommended_action", ""))}</td>
+        </tr>
+        """
+
+    case_studies_html = ""
+
+    if case_studies:
+        for case in case_studies:
+            case_studies_html += f"""
+            <div class="case-card">
+                <h3>{html.escape(case["title"])}</h3>
+                <p><strong>What happened:</strong> {html.escape(case["what_happened"])}</p>
+                <p><strong>Why it matters:</strong> {html.escape(case["why_it_matters"])}</p>
+                <p><strong>Detected context:</strong> {html.escape(case["context"])}</p>
+                <p><strong>Recommended action:</strong> {html.escape(case["recommended_action"])}</p>
+            </div>
+            """
+    else:
+        case_studies_html = """
+        <div class="case-card">
+            <h3>No Major Investigation Story Detected</h3>
+            <p>The analyzer did not find a major suspicious chain such as successful login after repeated failures, password spraying, privilege activity after suspicious login, or multi-host suspicious activity.</p>
+        </div>
+        """
+
+    incident_type_html = ""
+
+    for incident_type, count in sorted(incident_type_counts.items()):
+        incident_type_html += f"""
+        <div class="mini-stat">
+            <span>{html.escape(incident_type)}</span>
+            <strong>{count}</strong>
+        </div>
+        """
+
+    html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Security Incident Summary Report</title>
+    <style>
+        body {{
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }}
+
+        header {{
+            background: linear-gradient(135deg, #111827, #1f2937);
+            color: white;
+            padding: 32px;
+        }}
+
+        header h1 {{
+            margin: 0;
+            font-size: 30px;
+        }}
+
+        header p {{
+            margin-top: 8px;
+            color: #d1d5db;
+            max-width: 900px;
+        }}
+
+        main {{
+            padding: 30px;
+        }}
+
+        .summary-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }}
+
+        .summary-card {{
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+            border-left: 6px solid #2563eb;
+        }}
+
+        .summary-card h2 {{
+            margin: 0;
+            font-size: 14px;
+            color: #6b7280;
+            text-transform: uppercase;
+        }}
+
+        .summary-card p {{
+            margin: 8px 0 0;
+            font-size: 30px;
+            font-weight: bold;
+        }}
+
+        .critical-border {{
+            border-left-color: #991b1b;
+        }}
+
+        .high-border {{
+            border-left-color: #dc2626;
+        }}
+
+        .medium-border {{
+            border-left-color: #d97706;
+        }}
+
+        .low-border {{
+            border-left-color: #2563eb;
+        }}
+
+        section {{
+            margin-bottom: 35px;
+        }}
+
+        section h2 {{
+            font-size: 22px;
+            margin-bottom: 15px;
+        }}
+
+        .note {{
+            background: #eef2ff;
+            border-left: 5px solid #4f46e5;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }}
+
+        .case-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+            gap: 18px;
+        }}
+
+        .case-card {{
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+            overflow-wrap: anywhere;
+        }}
+
+        .case-card h3 {{
+            margin-top: 0;
+            color: #111827;
+        }}
+
+        .mini-stats {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+        }}
+
+        .mini-stat {{
+            background: white;
+            padding: 14px 16px;
+            border-radius: 12px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            overflow-wrap: anywhere;
+        }}
+
+        .mini-stat span {{
+            min-width: 0;
+            line-height: 1.4;
+        }}
+
+        .mini-stat strong {{
+            background: #111827;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 999px;
+            min-width: 28px;
+            text-align: center;
+        }}
+
+        table {{
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+        }}
+
+        th, td {{
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+            font-size: 14px;
+        }}
+
+        th {{
+            background: #111827;
+            color: white;
+        }}
+
+        tr:hover {{
+            background: #f9fafb;
+        }}
+
+        .badge {{
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 999px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }}
+
+        .severity-critical {{
+            background: #7f1d1d;
+        }}
+
+        .severity-high {{
+            background: #dc2626;
+        }}
+
+        .severity-medium {{
+            background: #d97706;
+        }}
+
+        .severity-low {{
+            background: #2563eb;
+        }}
+
+        .table-wrapper {{
+            overflow-x: auto;
+        }}
+
+        footer {{
+            text-align: center;
+            color: #6b7280;
+            font-size: 13px;
+            padding: 20px;
+        }}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Security Incident Summary Report</h1>
+        <p>
+            Generated by the Security Incident Log Analyzer and Alert Prioritizer.
+            This report summarizes detected incidents, severity levels, investigation stories,
+            and recommended actions.
+        </p>
+    </header>
+
+    <main>
+        <section class="summary-grid">
+            <div class="summary-card">
+                <h2>Total Incidents</h2>
+                <p>{total_incidents}</p>
+            </div>
+
+            <div class="summary-card critical-border">
+                <h2>Critical</h2>
+                <p>{critical_count}</p>
+            </div>
+
+            <div class="summary-card high-border">
+                <h2>High</h2>
+                <p>{high_count}</p>
+            </div>
+
+            <div class="summary-card medium-border">
+                <h2>Medium</h2>
+                <p>{medium_count}</p>
+            </div>
+
+            <div class="summary-card low-border">
+                <h2>Low</h2>
+                <p>{low_count}</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Detected Case Studies / Investigation Stories</h2>
+
+            <div class="note">
+                These case studies are generated from detected incident patterns.
+                They are not hard-coded to a specific username, IP address, hostname, or lab machine.
+            </div>
+
+            <div class="case-grid">
+                {case_studies_html}
+            </div>
+        </section>
+
+        <section>
+            <h2>Incident Type Breakdown</h2>
+            <div class="mini-stats">
+                {incident_type_html}
+            </div>
+        </section>
+
+        <section>
+            <h2>Prioritized Incident Table</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Severity</th>
+                            <th>Incident Type</th>
+                            <th>Source IP</th>
+                            <th>Host</th>
+                            <th>User</th>
+                            <th>Description</th>
+                            <th>Evidence Count</th>
+                            <th>Recommended Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {incident_rows_html}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        This report is generated from normalized security logs. It does not modify logs, block users, or change system settings.
+    </footer>
+</body>
+</html>
+"""
+
+    with HTML_OUTPUT_FILE.open("w", encoding="utf-8") as html_file:
+        html_file.write(html_content)
 
 def add_incident(
     incidents,
@@ -993,11 +1620,13 @@ def main():
 
     incidents = analyze_logs(rows)
     write_incident_summary(incidents)
+    write_html_report(incidents)
 
     print("Analysis complete.")
     print(f"Normalized rows read: {len(rows)}")
     print(f"Incidents written: {len(incidents)}")
     print(f"Output saved to: {OUTPUT_FILE}")
+    print(f"HTML report saved to: {HTML_OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
