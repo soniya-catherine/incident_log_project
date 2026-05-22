@@ -1,6 +1,6 @@
 # Security Incident Log Analyzer and Alert Prioritizer
 
-<img width="1774" height="887" alt="Image" src="https://github.com/user-attachments/assets/4dbeab86-638e-4cd2-8a18-853297347128" />
+<img width="1774" height="887" alt="security incident log analyzer hero image" src="https://github.com/user-attachments/assets/194303e1-c552-4e53-9709-d597072a3071" />
 
 ## Project Overview
 
@@ -431,6 +431,16 @@ Open it in a browser:
 ```bash
 xdg-open incident_summary.html
 ```
+
+<br>
+<img width="1672" height="941" alt="Security Incident Summary Report 01" src="https://github.com/user-attachments/assets/ef759978-6a80-405a-9af8-292d435437e5" />
+
+`Security Incident Summary Report 01`
+
+<br>
+<img width="1672" height="941" alt="Security Incident Summary Report 02" src="https://github.com/user-attachments/assets/637f73d7-3119-4878-a4c8-1fe9273b8328" />
+
+`Security Incident Summary Report 02`
 
 ## Detection Logic
 
