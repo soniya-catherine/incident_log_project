@@ -2,6 +2,12 @@
 
 <img width="1774" height="887" alt="security incident log analyzer hero image" src="https://github.com/user-attachments/assets/194303e1-c552-4e53-9709-d597072a3071" />
 
+## Demo Video
+
+This video shows a controlled attack simulation followed by a walkthrough of how the Security Incident Log Analyzer detects and analyzes suspicious activity.
+
+[![Watch Demo](https://img.shields.io/badge/Watch-Controlled%20Attack%20Demo%20%2B%20Tool%20Walkthrough-red?style=for-the-badge&logo=youtube)](https://youtu.be/lD3iJr7u8e4?si=C1Taz9fYkLGMCo_M)
+
 ## Project Overview
 
 **Security Incident Log Analyzer and Alert Prioritizer** is a beginner-friendly cybersecurity project that collects security logs from Ubuntu and Windows, converts them into one common format, analyzes suspicious activity, and creates a prioritized incident summary.
